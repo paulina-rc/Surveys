@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.args.get('message') == 'answered' %}
+<p>Encuesta respondida correctamente</p>
+{% endif %}
+
+<h2>Encuestas</h2>
+
+{% for survey in surveys %}
+
+<h3>{{ survey.title }}</h3>
+
+<a href="/survey/{{ survey.id }}">
+    Responder encuesta
+</a>
+
+<br><br>
+
+{% if session.role == 'admin' %}
+
+<a href="/results/{{ survey.id }}">
+    Ver resultados
+</a>
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

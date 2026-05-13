@@ -2,8 +2,25 @@
 
 {% block content %}
 
+{% if request.args.get('message') == 'created' %}
+<p>Encuesta creada correctamente</p>
+{% endif %}
+
 <h1>Bienvenido {{ session.user_name }}</h1>
+{% if session.role == 'admin' %}
+
+<a href="/create_survey">Crear encuesta</a>
+<br><br>
+
+<a href="/surveys">Ver encuestas</a>
+<br><br>
+
+{% else %}
+
+<a href="/surveys">Responder encuestas</a>
+<br><br>
+
+{% endif %}
 
 <a href="/logout">Cerrar sesión</a>
-
 {% endblock %}

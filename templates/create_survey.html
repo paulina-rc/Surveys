@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Crear encuesta</h2>
+
+<form method="POST">
+
+    <input type="text" name="title" placeholder="Título encuesta" required>
+    <br><br>
+
+    <h3>Pregunta 1</h3>
+
+    <input type="text" name="q1" placeholder="Pregunta 1" required>
+    <br><br>
+
+    <input type="text" name="op1_q1" placeholder="Opción 1" required>
+    <br><br>
+
+    <input type="text" name="op2_q1" placeholder="Opción 2" required>
+    <br><br>
+
+    <h3>Pregunta 2</h3>
+
+    <input type="text" name="q2" placeholder="Pregunta 2" required>
+    <br><br>
+
+    <input type="text" name="op1_q2" placeholder="Opción 1" required>
+    <br><br>
+
+    <input type="text" name="op2_q2" placeholder="Opción 2" required>
+    <br><br>
+
+    <h3>Pregunta 3</h3>
+
+    <input type="text" name="q3" placeholder="Pregunta 3" required>
+    <br><br>
+
+    <input type="text" name="op1_q3" placeholder="Opción 1" required>
+    <br><br>
+
+    <input type="text" name="op2_q3" placeholder="Opción 2" required>
+    <br><br>
+
+    <button type="submit">Crear encuesta</button>
+
+</form>
+
+{% endblock %}

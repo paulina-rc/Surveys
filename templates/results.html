@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Resultados</h2>
+
+{% for question in questions %}
+
+<h3>{{ question.question_text }}</h3>
+
+<table border="1">
+
+    <tr>
+        <th>Opción</th>
+        <th>Votos</th>
+    </tr>
+
+    {% for option in question.options %}
+
+    <tr>
+        <td>{{ option.option_text }}</td>
+        <td>{{ option.total_votes }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<br><br>
+
+{% endfor %}
+
+{% endblock %}

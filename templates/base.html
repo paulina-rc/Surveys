@@ -9,9 +9,21 @@
 <body>
 
     <nav>
-        <a href="/">Inicio</a>
+    
+        {% if 'user_id' in session %}
+    
+        <a href="/dashboard">Inicio</a>
+        &nbsp;
+        <a href="/logout">Cerrar sesión</a>
+    
+        {% else %}
+    
         <a href="/login">Login</a>
+        &nbsp;
         <a href="/register">Registro</a>
+    
+        {% endif %}
+    
     </nav>
 
     <hr>
