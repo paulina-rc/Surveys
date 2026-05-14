@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Usuarios</h2>
+
+<h3>Crear usuario</h3>
+
+<form method="POST">
+
+    <input type="text" name="name" placeholder="Nombre" required>
+    <br><br>
+
+    <input type="email" name="email" placeholder="Correo" required>
+    <br><br>
+
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <br><br>
+
+    <select name="role" required>
+        <option value="user">Usuario</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Crear usuario
+    </button>
+
+</form>
+
+<hr>
+
+<h3>Lista de usuarios</h3>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+    </tr>
+
+    {% for user in users %}
+
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

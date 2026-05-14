@@ -24,6 +24,16 @@
     Ver resultados
 </a>
 
+{% if session.role == 'admin' %}
+
+<br><br>
+
+<a href="/delete_survey/{{ survey.id }}">
+    Eliminar encuesta
+</a>
+
+{% endif %}
+
 {% endif %}
 
 {% endfor %}

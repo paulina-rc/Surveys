@@ -351,15 +351,119 @@ def results(survey_id):
         questions=questions
     )
 
+
+# USERS
+
+@app.route('/users', methods=['GET', 'POST'])
+def users():
+
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    if session['role'] != 'admin':
+        return "Acceso denegado"
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    # crear usuario
+    if request.method == 'POST':
+
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        role = request.form['role']
+
+        # verificar correo
+        query = "SELECT * FROM users WHERE email = %s"
+
+        cursor.execute(query, (email,))
+
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            return "El correo ya existe"
+
+        # insertar usuario
+        query = """
+        INSERT INTO users (name, email, password, role)
+        VALUES (%s, %s, %s, %s)
+        """
+
+        values = (name, email, password, role)
+        cursor.execute(query, values)
+        conn.commit()
+
+    # mostrar usuarios
+    query = "SELECT * FROM users"
+    cursor.execute(query)
+    users = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        'users.html',
+        users=users
+    )
+
+# DELETE SURVEY
+
+@app.route('/delete_survey/<int:survey_id>')
+def delete_survey(survey_id):
+
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    if session['role'] != 'admin':
+        return "Acceso denegado"
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # borrar respuestas
+    query = "DELETE FROM answers WHERE survey_id = %s"
+    cursor.execute(query, (survey_id,))
+
+    # obtener preguntas
+    query = "SELECT id FROM questions WHERE survey_id = %s"
+    cursor.execute(query, (survey_id,))
+
+    questions = cursor.fetchall()
+
+    # borrar opciones
+    for question in questions:
+
+        query = "DELETE FROM options WHERE question_id = %s"
+
+        cursor.execute(query, (question[0],))
+
+    # borrar preguntas
+    query = "DELETE FROM questions WHERE survey_id = %s"
+    cursor.execute(query, (survey_id,))
+
+    # borrar encuesta
+    query = "DELETE FROM surveys WHERE id = %s"
+    cursor.execute(query, (survey_id,))
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return redirect('/surveys')
+
 # LOGOUT 
 
 @app.route('/logout')
 def logout():
 
     session.clear()
-
     return redirect('/login')
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+    

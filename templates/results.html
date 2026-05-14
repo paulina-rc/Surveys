@@ -26,7 +26,41 @@
 
 </table>
 
+<br>
+
+<canvas id="chart{{ question.id }}" width="400" height="200"></canvas>
+
 <br><br>
+
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<script src="{{ url_for('static', filename='charts.js') }}"></script>
+
+{% for question in questions %}
+
+<script>
+
+    createChart(
+
+        'chart{{ question.id }}',
+
+        [
+            {% for option in question.options %}
+    '{{ option.option_text }}',
+        {% endfor %}
+    ],
+
+    [
+        {% for option in question.options %}
+    {{option.total_votes}},
+    {% endfor %}
+    ]
+
+);
+
+</script>
 
 {% endfor %}
 
