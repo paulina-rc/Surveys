@@ -3,38 +3,40 @@
 {% block content %}
 
 {% if request.args.get('message') == 'answered' %}
-<p>Encuesta respondida correctamente</p>
+<p class="message">
+    Encuesta respondida correctamente
+</p>
 {% endif %}
 
 <h2>Encuestas</h2>
 
 {% for survey in surveys %}
 
-<h3>{{ survey.title }}</h3>
+<div class="card">
 
-<a href="/survey/{{ survey.id }}">
-    Responder encuesta
-</a>
+    <h3>{{ survey.title }}</h3>
 
-<br><br>
+    <a href="/survey/{{ survey.id }}">
+        Responder encuesta
+    </a>
 
-{% if session.role == 'admin' %}
+    <br><br>
 
-<a href="/results/{{ survey.id }}">
-    Ver resultados
-</a>
+    {% if session.role == 'admin' %}
 
-{% if session.role == 'admin' %}
+    <a href="/results/{{ survey.id }}">
+        Ver resultados
+    </a>
 
-<br><br>
+    <br><br>
 
-<a href="/delete_survey/{{ survey.id }}">
-    Eliminar encuesta
-</a>
+    <a href="/delete_survey/{{ survey.id }}">
+        Eliminar encuesta
+    </a>
 
-{% endif %}
+    {% endif %}
 
-{% endif %}
+</div>
 
 {% endfor %}
 

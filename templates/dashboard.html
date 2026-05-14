@@ -3,7 +3,9 @@
 {% block content %}
 
 {% if request.args.get('message') == 'created' %}
-<p>Encuesta creada correctamente</p>
+<p class="message">
+    Encuesta creada correctamente
+</p>
 {% endif %}
 
 <h1>Bienvenido {{ session.user_name }}</h1>
