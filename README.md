@@ -1,4 +1,4 @@
-# Survey System 📊
+# Survey System 
 
 Survey management system developed with **Flask + MySQL**.
 
